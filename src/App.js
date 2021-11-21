@@ -21,6 +21,29 @@ function App() {
     fetchActivities();
   }, []);
 
+  const onActivitySubmit = async () => {
+    const url = `${process.env.REACT_APP_API_URL}/activities`;
+    const conf = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ text: inputText }),
+    };
+
+    try {
+      const response = await fetch(url, conf);
+      const obj = await response.json();
+
+      if (obj.status === "success") {
+        await fetchActivities();
+        setInputText("");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="App">
       <header className="App-header">
