@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 function App() {
   const [inputText, setInputText] = useState("");
-  const [activities, setPeople] = useState([]);
+  const [people, setPeople] = useState([]);
 
   const fetchPeople = async () => {
     const url = `${process.env.REACT_APP_API_URL}/people`;
@@ -93,6 +93,32 @@ function App() {
             </button>
           </div>
         </div>
+        {people &&
+          people.map(({ _id, text }) => (
+            <div key={_id} className="card shadow-lg">
+              <div className="card-body flex justify-between flex-row">
+                <p>{text}</p>
+                <button
+                  className="btn btn-xs"
+                  onClick={() => onPeopleDelete(_id)}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    className="inline-block w-4 h-4 stroke-current"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          ))}
       </div>
     </div>
   );
