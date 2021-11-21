@@ -44,6 +44,27 @@ function App() {
     }
   };
 
+  const onActivityDelete = async (id) => {
+    const url = `${process.env.REACT_APP_API_URL}/activities/${id}`;
+    const conf = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      const response = await fetch(url, conf);
+      const obj = await response.json();
+
+      if (obj.status === "success") {
+        await fetchActivities();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="App">
       <header className="App-header">
